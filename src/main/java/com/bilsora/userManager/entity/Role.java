@@ -12,7 +12,7 @@ import java.util.UUID;
 public class Role {
 
   @Id
-  @Column(name = DataBaseConstant.COLUMN_USER_ID)
+  @Column(name = DataBaseConstant.COLUMN_ROLE_ID)
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
