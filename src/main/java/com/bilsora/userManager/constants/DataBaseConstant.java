@@ -12,6 +12,7 @@ public class DataBaseConstant {
   public static final String COLUMN_LAST_NAME = "last_name";
   public static final String COLUMN_EMAIL = "email";
   public static final String COLUMN_ROLE = "role";
+  public static final String COLUMN_ROLE_ID = "role_id";
 
   private DataBaseConstant() {
     // private constructor
