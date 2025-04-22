@@ -1,0 +1,50 @@
+package com.bilsora.userManager.config;
+
+import com.bilsora.userManager.entity.TenantConfig;
+import com.bilsora.userManager.repository.TenantConfigRepository;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Configuration
+public class DataSourceConfig {
+
+  @Autowired
+  private TenantConfigRepository tenantConfigRepository;
+
+  private final Map<Object, Object> tenantDataSources = new HashMap<>();
+
+  @PostConstruct
+  public void loadTenantDataSources() {
+    List<TenantConfig> tenantConfigs = tenantConfigRepository.findAll();
+
+    for (TenantConfig config : tenantConfigs) {
+      DataSource dataSource = createDataSource(config);
+      tenantDataSources.put(config.getTenantId(), dataSource);
+    }
+  }
+
+  @Bean
+  public DataSource dataSource() {
+    TenantAwareRoutingDataSource routingDataSource = new TenantAwareRoutingDataSource();
+    routingDataSource.setTargetDataSources(tenantDataSources);
+    routingDataSource.setDefaultTargetDataSource(tenantDataSources.values().iterator().next());
+    routingDataSource.afterPropertiesSet();
+    return routingDataSource;
+  }
+
+  private DataSource createDataSource(TenantConfig config) {
+    DataSourceProperties properties = new DataSourceProperties();
+    properties.setUrl(config.getUrl());
+    properties.setUsername(config.getUsername());
+    properties.setPassword(config.getPassword());
+    return properties.initializeDataSourceBuilder().build();
+  }
+}
