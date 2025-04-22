@@ -26,5 +26,5 @@ public class User {
     private String email;
 
     @Column(name = DataBaseConstant.COLUMN_ROLE)
-    private String role;
+    private Role role;
 }
