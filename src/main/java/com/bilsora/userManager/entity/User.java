@@ -25,6 +25,7 @@ public class User {
     @Column(name = DataBaseConstant.COLUMN_EMAIL, unique = true)
     private String email;
 
-    @Column(name = DataBaseConstant.COLUMN_ROLE)
-    private String role;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = DataBaseConstant.COLUMN_ROLE_ID, referencedColumnName = DataBaseConstant.COLUMN_ROLE_ID)
+    private Role role;
 }
