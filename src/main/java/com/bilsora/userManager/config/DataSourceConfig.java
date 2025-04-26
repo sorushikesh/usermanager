@@ -3,26 +3,25 @@ package com.bilsora.userManager.config;
 import com.bilsora.userManager.entity.TenantConfig;
 import com.bilsora.userManager.repository.TenantConfigRepository;
 import jakarta.annotation.PostConstruct;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @Configuration
 public class DataSourceConfig {
 
+  private final Map<Object, Object> tenantDataSources = new HashMap<>();
   @Autowired
   private TenantConfigRepository tenantConfigRepository;
 
-  private final Map<Object, Object> tenantDataSources = new HashMap<>();
-
   @PostConstruct
   public void loadTenantDataSources() {
+
     List<TenantConfig> tenantConfigs = tenantConfigRepository.findAll();
 
     for (TenantConfig config : tenantConfigs) {

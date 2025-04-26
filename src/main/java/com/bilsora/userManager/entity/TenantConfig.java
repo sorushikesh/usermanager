@@ -7,8 +7,7 @@ import lombok.Data;
 @Entity
 @Data
 public class TenantConfig {
-  @Id
-  private String tenantId;
+  @Id private String tenantId;
   private String url;
   private String username;
   private String password;

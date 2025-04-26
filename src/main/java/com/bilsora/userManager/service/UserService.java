@@ -1,6 +1,3 @@
 package com.bilsora.userManager.service;
 
-public interface UserService {
-
-
-}
+public interface UserService {}
