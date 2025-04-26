@@ -6,6 +6,4 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class AuthServiceImpl implements AuthService {
-
-}
+public class AuthServiceImpl implements AuthService {}

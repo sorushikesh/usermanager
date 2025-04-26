@@ -4,6 +4,4 @@ import com.bilsora.userManager.service.OrganizationService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OrganizationServiceImpl implements OrganizationService {
-
-}
+public class OrganizationServiceImpl implements OrganizationService {}

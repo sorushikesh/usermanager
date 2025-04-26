@@ -21,10 +21,7 @@ public class Role {
   private String roleName;
 
   @ElementCollection(fetch = FetchType.EAGER)
-  @CollectionTable(
-      name = "role_permissions",
-      joinColumns = @JoinColumn(name = "role_id")
-  )
+  @CollectionTable(name = "role_permissions", joinColumns = @JoinColumn(name = "role_id"))
   @Column(name = "permission")
   private List<String> permissions;
 }
