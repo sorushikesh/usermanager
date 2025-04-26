@@ -4,9 +4,3 @@ spring:
     username: "postgres"
     password: "root"
     driver-class-name: org.postgresql.Driver
-
-  security:
-    user:
-      name: root
-      password: root
-
