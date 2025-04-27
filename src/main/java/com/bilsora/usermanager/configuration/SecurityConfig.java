@@ -25,8 +25,8 @@ public class SecurityConfig {
             auth ->
                 auth.requestMatchers("/api/public/**")
                     .permitAll()
-                    .requestMatchers("/api/admin/**")
-                    .hasAuthority("ROLE_ADMIN")
+                    .requestMatchers("/api/admin/**").permitAll()
+//                    .hasAuthority("ROLE_ADMIN")
                     .requestMatchers("/api/manager/**")
                     .hasAnyAuthority("ROLE_MANAGER", "ROLE_ADMIN")
                     .anyRequest()
