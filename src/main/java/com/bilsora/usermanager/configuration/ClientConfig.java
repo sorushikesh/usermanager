@@ -15,7 +15,6 @@ public class ClientConfig {
 
   @Bean
   public RegisteredClientRepository registeredClientRepository() {
-
     RegisteredClient registeredClient =
         RegisteredClient.withId(UUID.randomUUID().toString())
             .clientId("my-client")

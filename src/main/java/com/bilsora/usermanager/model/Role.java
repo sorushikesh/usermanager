@@ -2,21 +2,19 @@ package com.bilsora.usermanager.model;
 
 import jakarta.persistence.*;
 import java.util.Set;
-import java.util.UUID;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 public class Role {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private UUID id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-  private String name;
+  private String name; // Example: ROLE_ADMIN
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
@@ -24,8 +22,4 @@ public class Role {
       joinColumns = @JoinColumn(name = "role_id"),
       inverseJoinColumns = @JoinColumn(name = "permission_id"))
   private Set<Permission> permissions;
-
-  public Role(String name) {
-    this.name = name;
-  }
 }

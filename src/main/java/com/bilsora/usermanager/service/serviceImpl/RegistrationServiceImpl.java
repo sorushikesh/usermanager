@@ -26,11 +26,13 @@ public class RegistrationServiceImpl implements RegistrationService {
       throw new RuntimeException("Username already exists!");
     }
 
-    User user = new User();
-    user.setUsername(request.getUsername());
-    user.setPassword(passwordEncoder.encode(request.getPassword()));
-    user.setTenantId(request.getTenantId());
-    user.setEnabled(Boolean.TRUE);
+    User user =
+        User.builder()
+            .username(request.getUsername())
+            .password(passwordEncoder.encode(request.getPassword()))
+            .tenantId(request.getTenantId())
+            .enabled(Boolean.TRUE)
+            .build();
 
     Set<Role> roles = new HashSet<>();
     for (String roleName : request.getRoles()) {
