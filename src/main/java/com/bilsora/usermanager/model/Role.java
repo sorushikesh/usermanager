@@ -2,12 +2,13 @@ package com.bilsora.usermanager.model;
 
 import jakarta.persistence.*;
 import java.util.Set;
-import lombok.Getter;
-import lombok.Setter;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 public class Role {
 
   @Id
@@ -22,4 +23,8 @@ public class Role {
       joinColumns = @JoinColumn(name = "role_id"),
       inverseJoinColumns = @JoinColumn(name = "permission_id"))
   private Set<Permission> permissions;
+
+  public Role(String name) {
+    this.name = name;
+  }
 }

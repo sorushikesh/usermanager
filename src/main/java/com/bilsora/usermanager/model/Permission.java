@@ -1,12 +1,12 @@
 package com.bilsora.usermanager.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 public class Permission {
 
   @Id
@@ -14,4 +14,8 @@ public class Permission {
   private Long id;
 
   private String name;
+
+  public Permission(String name) {
+    this.name = name;
+  }
 }

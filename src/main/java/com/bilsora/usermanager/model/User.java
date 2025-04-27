@@ -1,13 +1,16 @@
 package com.bilsora.usermanager.model;
 
 import jakarta.persistence.*;
-import java.util.Set;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Entity
 @Data
-@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "app_user")
 public class User {
 
@@ -19,6 +22,7 @@ public class User {
   private String tenantId;
 
   private String organizationId;
+
   private String subscriptionPlan;
 
   private boolean enabled = true;
@@ -30,5 +34,4 @@ public class User {
       inverseJoinColumns = @JoinColumn(name = "role_id")
   )
   private Set<Role> roles;
-
 }
