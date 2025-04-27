@@ -1,4 +1,4 @@
-package com.bilsora.userManager;
+package com.bilsora.usermanager;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

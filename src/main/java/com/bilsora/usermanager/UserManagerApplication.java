@@ -1,4 +1,4 @@
-package com.bilsora.userManager;
+package com.bilsora.usermanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
