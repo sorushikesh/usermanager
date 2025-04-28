@@ -1,6 +1,6 @@
 package com.bilsora.usermanager.service.serviceImpl;
 
-import com.bilsora.usermanager.dto.UserRegistrationRequest;
+import com.bilsora.usermanager.dto.request.UserRegistrationRequest;
 import com.bilsora.usermanager.model.Role;
 import com.bilsora.usermanager.model.Users;
 import com.bilsora.usermanager.repository.RoleRepository;

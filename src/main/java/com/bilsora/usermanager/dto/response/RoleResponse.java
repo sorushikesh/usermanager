@@ -1,4 +1,4 @@
-package com.bilsora.usermanager.dto;
+package com.bilsora.usermanager.dto.response;
 
 import java.util.UUID;
 import lombok.AllArgsConstructor;

@@ -2,7 +2,7 @@ package com.bilsora.usermanager.service.serviceImpl;
 
 import com.bilsora.usermanager.constants.ExceptionErrorCode;
 import com.bilsora.usermanager.constants.FieldConstant;
-import com.bilsora.usermanager.dto.RoleResponse;
+import com.bilsora.usermanager.dto.response.RoleResponse;
 import com.bilsora.usermanager.exceptions.NotFoundException;
 import com.bilsora.usermanager.repository.RoleRepository;
 import com.bilsora.usermanager.service.RoleService;
@@ -20,7 +20,7 @@ public class RoleServiceImpl implements RoleService {
   private final RoleRepository roleRepository;
 
   @Override
-  public RoleResponse findByName(String roleName) {
+  public RoleResponse findByName(String roleName) throws NotFoundException {
 
     log.info("Searching for role {}", roleName);
     var problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);

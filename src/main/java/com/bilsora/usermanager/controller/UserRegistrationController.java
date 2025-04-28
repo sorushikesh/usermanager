@@ -1,6 +1,6 @@
 package com.bilsora.usermanager.controller;
 
-import com.bilsora.usermanager.dto.UserRegistrationRequest;
+import com.bilsora.usermanager.dto.request.UserRegistrationRequest;
 import com.bilsora.usermanager.service.RegistrationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
