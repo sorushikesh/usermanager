@@ -11,8 +11,8 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "app_user")
-public class User {
+@Table(name = "users")
+public class Users {
 
   @Id
   private String username;

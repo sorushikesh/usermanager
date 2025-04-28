@@ -2,7 +2,7 @@ package com.bilsora.usermanager.service.serviceImpl;
 
 import com.bilsora.usermanager.dto.UserRegistrationRequest;
 import com.bilsora.usermanager.model.Role;
-import com.bilsora.usermanager.model.User;
+import com.bilsora.usermanager.model.Users;
 import com.bilsora.usermanager.repository.RoleRepository;
 import com.bilsora.usermanager.repository.UserRepository;
 import com.bilsora.usermanager.service.RegistrationService;
@@ -26,11 +26,11 @@ public class RegistrationServiceImpl implements RegistrationService {
       throw new RuntimeException("Username already exists!");
     }
 
-    User user = new User();
-    user.setUsername(request.getUsername());
-    user.setPassword(passwordEncoder.encode(request.getPassword()));
-    user.setTenantId(request.getTenantId());
-    user.setEnabled(Boolean.TRUE);
+    Users users = new Users();
+    users.setUsername(request.getUsername());
+    users.setPassword(passwordEncoder.encode(request.getPassword()));
+    users.setTenantId(request.getTenantId());
+    users.setEnabled(Boolean.TRUE);
 
     Set<Role> roles = new HashSet<>();
     for (String roleName : request.getRoles()) {
@@ -41,7 +41,7 @@ public class RegistrationServiceImpl implements RegistrationService {
       roles.add(role);
     }
 
-    user.setRoles(roles);
-    userRepository.save(user);
+    users.setRoles(roles);
+    userRepository.save(users);
   }
 }
