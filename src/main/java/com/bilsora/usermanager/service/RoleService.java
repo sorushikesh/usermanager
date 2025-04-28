@@ -1,12 +1,9 @@
 package com.bilsora.usermanager.service;
 
 import com.bilsora.usermanager.dto.response.RoleResponse;
-
 import java.util.List;
 
-/**
- * Service interface for managing roles.
- */
+/** Service interface for managing roles. */
 public interface RoleService {
 
   /**
