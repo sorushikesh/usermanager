@@ -1,3 +1,8 @@
 package com.bilsora.usermanager.service;
 
-public interface RoleService {}
+import com.bilsora.usermanager.dto.RoleResponse;
+
+public interface RoleService {
+
+  RoleResponse findByName(String roleName);
+}
