@@ -1,4 +1,4 @@
-package com.bilsora.usermanager.dto;
+package com.bilsora.usermanager.dto.request;
 
 import java.util.Set;
 import lombok.Data;

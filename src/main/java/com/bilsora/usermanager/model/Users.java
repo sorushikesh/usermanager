@@ -1,11 +1,10 @@
 package com.bilsora.usermanager.model;
 
 import jakarta.persistence.*;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Set;
 
 @Entity
 @Data
@@ -14,8 +13,7 @@ import java.util.Set;
 @Table(name = "users")
 public class Users {
 
-  @Id
-  private String username;
+  @Id private String username;
 
   private String password;
 
@@ -31,7 +29,6 @@ public class Users {
   @JoinTable(
       name = "user_roles",
       joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"),
-      inverseJoinColumns = @JoinColumn(name = "role_id")
-  )
+      inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles;
 }

@@ -1,14 +1,50 @@
 package com.bilsora.usermanager.controller;
 
+import static com.bilsora.usermanager.constants.APIEndPoints.API_ROLE;
+import static com.bilsora.usermanager.constants.APIEndPoints.API_USER_MANAGER;
+
+import com.bilsora.usermanager.dto.request.RoleNameRequest;
+import com.bilsora.usermanager.dto.response.RoleResponse;
 import com.bilsora.usermanager.service.RoleService;
+
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Locale;
+
+@Slf4j
 @RestController
-@RequestMapping("/api/usermanager/role")
+@RequestMapping(API_USER_MANAGER + API_ROLE)
 @RequiredArgsConstructor
 public class RoleController {
 
   private final RoleService roleService;
 
+  @PostMapping("/get-by-name")
+  @ResponseStatus(HttpStatus.OK)
+  public RoleResponse getRoleByName(
+      @RequestBody @Validated RoleNameRequest roleNameRequest,
+      @RequestHeader(value = "locale", required = false) String localeHeader
+  ) {
+
+    Locale locale = resolveLocale(localeHeader);
+    LocaleContextHolder.setLocale(locale);
+
+    String roleName = roleNameRequest.getRoleName();
+    log.info("Fetching role by name: {}", roleName);
+
+    return roleService.findByName(roleName);
+  }
+
+  private Locale resolveLocale(String localeHeader) {
+    if (localeHeader == null || localeHeader.isBlank()) {
+      return Locale.ENGLISH;
+    }
+    return Locale.forLanguageTag(localeHeader);
+  }
 }
