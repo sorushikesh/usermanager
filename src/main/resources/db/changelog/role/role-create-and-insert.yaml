@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20240428-001-create-role-table
+      author: rushikesh
+      changes:
+      - createTable:
+          tableName: role
+          columns:
+            - column:
+                name: id
+                type: UUID
+                defaultValueComputed: gen_random_uuid()
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: name
+                type: VARCHAR(255)
+                constraints:
+                  nullable: false
+                  unique: true
+
+  - changeSet:
+      id: 20240428-002-insert-default-roles
+      author: rushikesh
+      changes:
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: name
+                  value: Admin
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: name
+                  value: Accountant
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: name
+                  value: User
+      rollback:
+        - delete:
+            tableName: role
+            where: name in ('Admin', 'Accountant', 'User')
