@@ -3,7 +3,6 @@ package com.bilsora.usermanager.model;
 import jakarta.persistence.*;
 import java.util.Set;
 import java.util.UUID;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

@@ -1,6 +1,3 @@
 package com.bilsora.usermanager.service;
 
-public interface RoleService {
-
-
-}
+public interface RoleService {}
