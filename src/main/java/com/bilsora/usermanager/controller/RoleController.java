@@ -30,6 +30,7 @@ public class RoleController {
   public RoleResponse getRoleByName(
       @PathVariable String roleName,
       @RequestHeader(value = "locale", required = false) String localeHeader) {
+
     Locale locale = resolveLocale(localeHeader);
     LocaleContextHolder.setLocale(locale);
     log.info("Fetching role by name: {}", roleName);
