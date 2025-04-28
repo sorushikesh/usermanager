@@ -1,6 +1,6 @@
 package com.bilsora.usermanager.service.serviceImpl;
 
-import com.bilsora.usermanager.model.User;
+import com.bilsora.usermanager.model.Users;
 import com.bilsora.usermanager.repository.UserRepository;
 import com.bilsora.usermanager.service.CustomUserDetailsService;
 import java.util.Set;
@@ -20,13 +20,13 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-    User appUser =
+    Users appUsers =
         userRepository
             .findByUsername(username)
             .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
     Set<SimpleGrantedAuthority> authorities =
-        appUser.getRoles().stream()
+        appUsers.getRoles().stream()
             .flatMap(
                 role ->
                     Stream.concat(
@@ -36,10 +36,10 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
             .collect(Collectors.toSet());
 
     return org.springframework.security.core.userdetails.User.builder()
-        .username(appUser.getUsername())
-        .password(appUser.getPassword())
+        .username(appUsers.getUsername())
+        .password(appUsers.getPassword())
         .authorities(authorities)
-        .disabled(!appUser.isEnabled())
+        .disabled(!appUsers.isEnabled())
         .build();
   }
 }
