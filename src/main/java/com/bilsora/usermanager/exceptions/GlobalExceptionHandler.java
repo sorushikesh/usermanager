@@ -1,9 +1,6 @@
 package com.bilsora.usermanager.exceptions;
 
-import com.bilsora.usermanager.constants.ExceptionErrorCode;
 import jakarta.servlet.http.HttpServletRequest;
-
-import java.util.List;
 import java.util.Optional;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -28,7 +25,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     ProblemDetail problemDetail = ex.getBody();
     problemDetail.setStatus(HttpStatus.NOT_FOUND);
 
-    var errorCode = ExceptionErrorCode.EXCEPTION_NOT_FOUND;
+    var errorCode = ex.getDetailMessageCode();
     var errorMessage =
         Optional.of(
             messageSource.getMessage(
