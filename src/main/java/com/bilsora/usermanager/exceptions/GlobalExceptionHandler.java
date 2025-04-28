@@ -1,7 +1,9 @@
 package com.bilsora.usermanager.exceptions;
 
+import static com.bilsora.usermanager.constants.FieldConstant.COLON;
+import static com.bilsora.usermanager.constants.FieldConstant.ERROR_CODE;
+
 import jakarta.servlet.http.HttpServletRequest;
-import java.util.Optional;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -27,12 +29,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     var errorCode = ex.getDetailMessageCode();
     var errorMessage =
-        Optional.of(
-            messageSource.getMessage(
-                errorCode, ex.getDetailMessageArguments(), LocaleContextHolder.getLocale()));
+        messageSource.getMessage(
+            errorCode, ex.getDetailMessageArguments(), LocaleContextHolder.getLocale());
 
-    problemDetail.setProperty("path", request.getRequestURI());
-    problemDetail.setProperty("ErrorCode", errorCode + ":" + errorMessage);
+    problemDetail.setProperty(ERROR_CODE, errorCode + COLON + errorMessage);
 
     return problemDetail;
   }
