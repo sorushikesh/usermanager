@@ -13,5 +13,5 @@ public interface UserService {
    * @param username String username
    * @return User
    */
-  Optional<Users> findByUsername(String username);
+  Optional<Users> fetchUserByUsername(String username);
 }
