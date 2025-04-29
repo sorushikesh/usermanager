@@ -37,7 +37,6 @@ public class RegistrationController {
 
     Users user = registrationService.registerUser(registrationRequest);
 
-    return UserResponse.builder().message("User registered successfully").users(user)
-        .build();
+    return UserResponse.builder().message("User registered successfully").users(user).build();
   }
 }

@@ -17,8 +17,18 @@ public interface UserService {
 
   /**
    * Delete user by username
+   *
    * @param username String username
    * @return User
    */
   Optional<Users> deleteUserByUsername(String username);
+
+  /**
+   * Activate user
+   *
+   * @param username String username
+   * @return User
+   */
+  Optional<Users> activateUser(String username);
+
 }

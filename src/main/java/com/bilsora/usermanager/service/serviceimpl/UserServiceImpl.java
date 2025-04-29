@@ -34,4 +34,19 @@ public class UserServiceImpl implements UserService {
     return userOpt;
   }
 
+  @Override
+  @Transactional
+  public Optional<Users> activateUser(String username) {
+    log.info("Activating user for username {}", username);
+    Optional<Users> userOpt = userRepository.findByUsername(username);
+    userOpt.ifPresent(user -> {
+      log.info("User details found for username {}", username);
+      user.setActive(true);
+      userRepository.save(user);
+      log.info("User {} activated successfully", username);
+    });
+    return userOpt;
+  }
+
+
 }
