@@ -6,6 +6,7 @@ import com.bilsora.usermanager.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -23,4 +24,14 @@ public class UserServiceImpl implements UserService {
     log.info("Fetching user details for username {}", username);
     return userRepository.findByUsername(username);
   }
+
+  @Override
+  @Transactional
+  public Optional<Users> deleteUserByUsername(String username) {
+    log.info("Deleting user details for username {}", username);
+    Optional<Users> userOpt = userRepository.findByUsername(username);
+    userOpt.ifPresent(userRepository::delete);
+    return userOpt;
+  }
+
 }

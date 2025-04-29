@@ -2,9 +2,7 @@ package com.bilsora.usermanager.controller;
 
 import com.bilsora.usermanager.constants.ExceptionErrorCode;
 import com.bilsora.usermanager.constants.FieldConstant;
-import com.bilsora.usermanager.dto.request.RoleNameRequest;
 import com.bilsora.usermanager.dto.request.UserRequest;
-import com.bilsora.usermanager.dto.response.RoleResponse;
 import com.bilsora.usermanager.dto.response.UserResponse;
 import com.bilsora.usermanager.exceptions.NotFoundException;
 import com.bilsora.usermanager.service.UserService;
@@ -44,9 +42,26 @@ public class UserController {
 
     var problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
     return userService.fetchUserByUsername(userName)
-        .map(user -> new UserResponse(user.getUsername(), user.getPassword(), user.getEmail(),
-            user.isActive(), user.getRole()))
+        .map(user -> UserResponse.builder().users(user).build())
         .orElseThrow(() -> NotFoundException.of("User not found",
             ExceptionErrorCode.EXCEPTION_NOT_FOUND, new Object[] {FieldConstant.USER, userName}));
   }
+
+  @DeleteMapping("/delete-by-username")
+  @ResponseStatus(HttpStatus.OK)
+  public UserResponse deleteUserByUsername(@Valid @RequestBody UserRequest userRequest,
+      @RequestHeader(value = "locale", required = false) String localeHeader) {
+
+    LocaleContextHolder.setLocale(userManagerUtil.resolveLocale(localeHeader));
+    String userName = userRequest.getUserName();
+    log.info("Deleting user details for username: {}", userName);
+
+    return userService.deleteUserByUsername(userName)
+        .map(user -> UserResponse.builder().message("User deleted successfully.").users(user).build())
+        .orElseThrow(() -> NotFoundException.of(
+            "User not found",
+            ExceptionErrorCode.EXCEPTION_NOT_FOUND,
+            new Object[] { FieldConstant.USER, userName }));
+  }
+
 }

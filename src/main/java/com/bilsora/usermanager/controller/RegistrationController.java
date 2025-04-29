@@ -1,7 +1,7 @@
 package com.bilsora.usermanager.controller;
 
 import com.bilsora.usermanager.dto.request.UserRegistrationRequest;
-import com.bilsora.usermanager.dto.response.UserRegistrationResponse;
+import com.bilsora.usermanager.dto.response.UserResponse;
 import com.bilsora.usermanager.model.Users;
 import com.bilsora.usermanager.service.RegistrationService;
 import com.bilsora.usermanager.util.UserManagerUtil;
@@ -26,7 +26,7 @@ public class RegistrationController {
 
   @PostMapping(API_USER + "/{tenantId}")
   @ResponseStatus(HttpStatus.CREATED)
-  public UserRegistrationResponse registerUser(
+  public UserResponse registerUser(
       @RequestHeader(value = "locale", required = false) String localeHeader,
       @PathVariable String tenantId, @RequestBody UserRegistrationRequest registrationRequest) {
 
@@ -37,7 +37,7 @@ public class RegistrationController {
 
     Users user = registrationService.registerUser(registrationRequest);
 
-    return UserRegistrationResponse.builder().message("User registered successfully").users(user)
+    return UserResponse.builder().message("User registered successfully").users(user)
         .build();
   }
 }

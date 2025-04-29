@@ -14,4 +14,11 @@ public interface UserService {
    * @return User
    */
   Optional<Users> fetchUserByUsername(String username);
+
+  /**
+   * Delete user by username
+   * @param username String username
+   * @return User
+   */
+  Optional<Users> deleteUserByUsername(String username);
 }
