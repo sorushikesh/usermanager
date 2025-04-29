@@ -23,18 +23,8 @@ databaseChangeLog:
                   constraints:
                     nullable: true
               - column:
-                  name: organization_id
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: true
-              - column:
-                  name: subscription_plan
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: true
-              - column:
-                  name: enabled
+                  name: active
                   type: BOOLEAN
-                  defaultValueBoolean: true
+                  defaultValueBoolean: false
                   constraints:
                     nullable: false

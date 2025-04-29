@@ -1,7 +1,6 @@
 package com.bilsora.usermanager.model;
 
 import jakarta.persistence.*;
-import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,21 +13,11 @@ import lombok.NoArgsConstructor;
 public class Users {
 
   @Id private String username;
-
   private String password;
+  private Long tenantId;
+  private boolean active = true;
 
-  private String tenantId;
-
-  private String organizationId;
-
-  private String subscriptionPlan;
-
-  private boolean enabled = true;
-
-  @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(
-      name = "user_roles",
-      joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"),
-      inverseJoinColumns = @JoinColumn(name = "role_id"))
-  private Set<Role> roles;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "role_id", referencedColumnName = "id")
+  private Role role;
 }

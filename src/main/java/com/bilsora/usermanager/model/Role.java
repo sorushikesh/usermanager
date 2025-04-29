@@ -1,14 +1,16 @@
 package com.bilsora.usermanager.model;
 
 import jakarta.persistence.*;
-import java.util.Set;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "roles")
 public class Role {
 
   @Id
@@ -16,15 +18,4 @@ public class Role {
   private UUID id;
 
   private String name;
-
-  @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(
-      name = "role_permissions",
-      joinColumns = @JoinColumn(name = "role_id"),
-      inverseJoinColumns = @JoinColumn(name = "permission_id"))
-  private Set<Permission> permissions;
-
-  public Role(String name) {
-    this.name = name;
-  }
 }
