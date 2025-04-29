@@ -25,7 +25,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   public ProblemDetail handleNotFoundException(NotFoundException ex, HttpServletRequest request) {
 
     ProblemDetail problemDetail = ex.getBody();
-    problemDetail.setStatus(HttpStatus.NOT_FOUND);
+    problemDetail.setStatus((HttpStatus) ex.getStatusCode());
 
     var errorCode = ex.getDetailMessageCode();
     var errorMessage =
