@@ -1,8 +1,10 @@
 package com.bilsora.usermanager.exceptions;
 
+import static com.bilsora.usermanager.configuration.MessageSourceConfig.MESSAGE_SOURCE;
 import static com.bilsora.usermanager.constants.FieldConstant.COLON;
 import static com.bilsora.usermanager.constants.FieldConstant.ERROR_CODE;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -15,7 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-  private final MessageSource messageSource;
+  private final @Qualifier(MESSAGE_SOURCE) MessageSource messageSource;
 
   public GlobalExceptionHandler(MessageSource messageSource) {
     this.messageSource = messageSource;

@@ -1,7 +1,7 @@
 package com.bilsora.usermanager.exceptions;
 
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.ErrorResponseException;
 
@@ -9,37 +9,53 @@ import org.springframework.web.ErrorResponseException;
  * Exception thrown when a requested resource already exists. Encapsulates ProblemDetail along with
  * an error code and optional arguments for message localization.
  */
-@Getter
 public class AlreadyExistsException extends ErrorResponseException {
 
-  private final String errorCode;
-  private final transient Object[] args;
-
-  private AlreadyExistsException(String message, String errorCode, Object[] args) {
-    super(HttpStatus.CONFLICT, createProblemDetail(message, errorCode, args), null);
-    this.errorCode = errorCode;
-    this.args = args;
+  /**
+   * Constructs a new AlreadyExistsException with the given status, problem detail, error code, and
+   * arguments.
+   *
+   * @param statusCode the HTTP status code
+   * @param problemDetail the problem detail object
+   * @param errorCode the error code for localization
+   * @param errorMessageArguments the arguments for the error message, may be null
+   */
+  public AlreadyExistsException(HttpStatusCode statusCode, ProblemDetail problemDetail, String errorCode,
+      Object[] errorMessageArguments) {
+    super(statusCode, validateProblemDetail(problemDetail), null, errorCode, errorMessageArguments);
   }
 
   /**
-   * Factory method to create AlreadyExistsException.
+   * Constructs a new AlreadyExistsException with HTTP 409 (Conflict) by default.
    *
-   * @param message Error message
-   * @param errorCode Custom error code
-   * @param args Optional arguments for localization
-   * @return AlreadyExistsException
+   * @param problemDetail the problem detail object
+   * @param errorCode the error code for localization
+   * @param errorMessageArguments the arguments for the error message, may be null
    */
-  public static AlreadyExistsException of(String message, String errorCode, Object[] args) {
-    return new AlreadyExistsException(message, errorCode, args);
+  public AlreadyExistsException(ProblemDetail problemDetail, String errorCode,
+      Object[] errorMessageArguments) {
+    this(HttpStatus.CONFLICT, problemDetail, errorCode, errorMessageArguments);
   }
 
-  private static ProblemDetail createProblemDetail(String message, String errorCode,
-      Object[] args) {
-    ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.CONFLICT);
+  /**
+   * Static factory method to create an AlreadyExistsException easily.
+   *
+   * @param message the error message
+   * @param errorCode the error code
+   * @param errorMessageArguments List of arguments
+   * @return the AlreadyExistsException
+   */
+  public static AlreadyExistsException of(String message, String errorCode,
+      Object[] errorMessageArguments) {
+    ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, message);
     problemDetail.setTitle("Resource Already Exists");
-    problemDetail.setDetail(message);
-    problemDetail.setProperty("errorCode", errorCode);
-    problemDetail.setProperty("arguments", args);
+    return new AlreadyExistsException(problemDetail, errorCode, errorMessageArguments);
+  }
+
+  private static ProblemDetail validateProblemDetail(ProblemDetail problemDetail) {
+    if (problemDetail == null) {
+      throw new IllegalArgumentException("ProblemDetail must not be null");
+    }
     return problemDetail;
   }
 }
