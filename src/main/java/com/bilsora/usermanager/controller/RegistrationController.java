@@ -28,8 +28,7 @@ public class RegistrationController {
   @ResponseStatus(HttpStatus.CREATED)
   public UserRegistrationResponse registerUser(
       @RequestHeader(value = "locale", required = false) String localeHeader,
-      @PathVariable String tenantId,
-      @RequestBody UserRegistrationRequest registrationRequest) {
+      @PathVariable String tenantId, @RequestBody UserRegistrationRequest registrationRequest) {
 
     Locale locale = userManagerUtil.resolveLocale(localeHeader);
     LocaleContextHolder.setLocale(locale);
@@ -38,9 +37,7 @@ public class RegistrationController {
 
     Users user = registrationService.registerUser(registrationRequest);
 
-    return UserRegistrationResponse.builder()
-        .message("User registered successfully")
-        .users(user)
+    return UserRegistrationResponse.builder().message("User registered successfully").users(user)
         .build();
   }
 }

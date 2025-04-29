@@ -26,27 +26,20 @@ public class RegistrationServiceImpl implements RegistrationService {
 
   @Override
   public Users registerUser(UserRegistrationRequest request) {
-    log.info(
-        "Registering user for username {} and role {}.", request.getUsername(), request.getRole());
+    log.info("Registering user for username {} and role {}.", request.getUsername(),
+        request.getRole());
 
     log.info("Checking if user already exists.");
     if (userRepository.existsById(request.getUsername())) {
-      throw AlreadyExistsException.of(
-          "User already exists",
+      throw AlreadyExistsException.of("User already exists",
           ExceptionErrorCode.EXCEPTION_ALREADY_EXISTS,
           new Object[] {FieldConstant.USERNAME, request.getUsername()});
     }
 
     log.info("Fetching the role for {}", request.getRole());
-    var role =
-        roleService
-            .findByName(request.getRole())
-            .orElseThrow(
-                () ->
-                    NotFoundException.of(
-                        "Role not found",
-                        ExceptionErrorCode.EXCEPTION_NOT_FOUND,
-                        new Object[] {FieldConstant.ROLE, request.getRole()}));
+    var role = roleService.findByName(request.getRole()).orElseThrow(
+        () -> NotFoundException.of("Role not found", ExceptionErrorCode.EXCEPTION_NOT_FOUND,
+            new Object[] {FieldConstant.ROLE, request.getRole()}));
 
     log.info("Encoding the password");
     String encodedPassword = passwordEncoder.encode(request.getPassword());

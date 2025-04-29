@@ -15,19 +15,12 @@ public class JwtService {
   private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
   public String generateAccessToken(UserDetails userDetails, String tenantId) {
-    String authorities =
-        userDetails.getAuthorities().stream()
-            .map(GrantedAuthority::getAuthority)
-            .collect(Collectors.joining(","));
+    String authorities = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+        .collect(Collectors.joining(","));
 
-    return Jwts.builder()
-        .subject(userDetails.getUsername())
-        .claim("authorities", authorities)
-        .claim("tenantId", tenantId)
-        .issuedAt(new Date())
-        .expiration(new Date(System.currentTimeMillis() + 15 * 60 * 1000))
-        .signWith(key)
-        .compact();
+    return Jwts.builder().subject(userDetails.getUsername()).claim("authorities", authorities)
+        .claim("tenantId", tenantId).issuedAt(new Date())
+        .expiration(new Date(System.currentTimeMillis() + 15 * 60 * 1000)).signWith(key).compact();
   }
 
   public Key getKey() {

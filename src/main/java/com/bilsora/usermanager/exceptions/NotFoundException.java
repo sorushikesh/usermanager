@@ -20,10 +20,7 @@ public class NotFoundException extends ErrorResponseException {
    * @param errorCode the error code for localization
    * @param errorMessageArguments the arguments for the error message, may be null
    */
-  public NotFoundException(
-      HttpStatusCode statusCode,
-      ProblemDetail problemDetail,
-      String errorCode,
+  public NotFoundException(HttpStatusCode statusCode, ProblemDetail problemDetail, String errorCode,
       Object[] errorMessageArguments) {
 
     super(statusCode, validateProblemDetail(problemDetail), null, errorCode, errorMessageArguments);
@@ -36,8 +33,8 @@ public class NotFoundException extends ErrorResponseException {
    * @param errorCode the error code for localization
    * @param errorMessageArguments the arguments for the error message, may be null
    */
-  public NotFoundException(
-      ProblemDetail problemDetail, String errorCode, Object[] errorMessageArguments) {
+  public NotFoundException(ProblemDetail problemDetail, String errorCode,
+      Object[] errorMessageArguments) {
 
     this(HttpStatus.NOT_FOUND, problemDetail, errorCode, errorMessageArguments);
   }
@@ -50,8 +47,8 @@ public class NotFoundException extends ErrorResponseException {
    * @param errorMessageArguments List of arguments
    * @return the NotFoundException
    */
-  public static NotFoundException of(
-      String message, String errorCode, Object[] errorMessageArguments) {
+  public static NotFoundException of(String message, String errorCode,
+      Object[] errorMessageArguments) {
     ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, message);
     return new NotFoundException(problemDetail, errorCode, errorMessageArguments);
   }
