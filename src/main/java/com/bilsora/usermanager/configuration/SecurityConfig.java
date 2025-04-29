@@ -20,20 +20,13 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable)
-        .authorizeHttpRequests(
-            auth ->
-                auth.requestMatchers("/api/**")
-                    .permitAll()
-                    .requestMatchers("/api/admin/**")
-                    .permitAll()
-                    //                    .hasAuthority("ROLE_ADMIN")
-                    .requestMatchers("/api/manager/**")
-                    .hasAnyAuthority("ROLE_MANAGER", "ROLE_ADMIN")
-                    .anyRequest()
-                    .authenticated())
-        .oauth2ResourceServer(
-            oauth2 ->
-                oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
+        .authorizeHttpRequests(auth -> auth.requestMatchers("/api/**").permitAll()
+            .requestMatchers("/api/admin/**").permitAll()
+            // .hasAuthority("ROLE_ADMIN")
+            .requestMatchers("/api/manager/**").hasAnyAuthority("ROLE_MANAGER", "ROLE_ADMIN")
+            .anyRequest().authenticated())
+        .oauth2ResourceServer(oauth2 -> oauth2
+            .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
 
     return http.build();
   }

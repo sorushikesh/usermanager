@@ -28,9 +28,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     problemDetail.setStatus((HttpStatus) ex.getStatusCode());
 
     var errorCode = ex.getDetailMessageCode();
-    var errorMessage =
-        messageSource.getMessage(
-            errorCode, ex.getDetailMessageArguments(), LocaleContextHolder.getLocale());
+    var errorMessage = messageSource.getMessage(errorCode, ex.getDetailMessageArguments(),
+        LocaleContextHolder.getLocale());
 
     problemDetail.setProperty(ERROR_CODE, errorCode + COLON + errorMessage);
 
@@ -44,9 +43,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     problemDetail.setStatus((HttpStatus) ex.getStatusCode());
 
     var errorCode = ex.getDetailMessageCode();
-    var errorMessage =
-        messageSource.getMessage(
-            errorCode, ex.getDetailMessageArguments(), LocaleContextHolder.getLocale());
+    var errorMessage = messageSource.getMessage(errorCode, ex.getDetailMessageArguments(),
+        LocaleContextHolder.getLocale());
 
     problemDetail.setProperty(ERROR_CODE, errorCode + COLON + errorMessage);
 

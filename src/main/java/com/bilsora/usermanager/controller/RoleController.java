@@ -32,8 +32,7 @@ public class RoleController {
 
   @PostMapping("/get-by-name")
   @ResponseStatus(HttpStatus.OK)
-  public RoleResponse getRoleByName(
-      @Valid @RequestBody RoleNameRequest roleNameRequest,
+  public RoleResponse getRoleByName(@Valid @RequestBody RoleNameRequest roleNameRequest,
       @RequestHeader(value = "locale", required = false) String localeHeader) {
 
     Locale locale = userManagerUtil.resolveLocale(localeHeader);
@@ -43,15 +42,10 @@ public class RoleController {
     log.info("Fetching role by name: {}", roleName);
 
     var problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
-    return roleService
-        .findByName(roleName)
+    return roleService.findByName(roleName)
         .map(role -> new RoleResponse(role.getId(), role.getName()))
-        .orElseThrow(
-            () ->
-                NotFoundException.of(
-                    "Role not found",
-                    ExceptionErrorCode.EXCEPTION_NOT_FOUND,
-                    new Object[] {FieldConstant.ROLE, roleName}));
+        .orElseThrow(() -> NotFoundException.of("Role not found",
+            ExceptionErrorCode.EXCEPTION_NOT_FOUND, new Object[] {FieldConstant.ROLE, roleName}));
   }
 
   @GetMapping("/roles")

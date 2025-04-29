@@ -23,21 +23,12 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
     log.info("Authenticating user: {}", username);
-    Users appUser =
-        userRepository
-            .findByUsername(username)
-            .orElseThrow(
-                () ->
-                    NotFoundException.of(
-                        "User not found",
-                        ExceptionErrorCode.EXCEPTION_NOT_FOUND,
-                        new Object[] {FieldConstant.USER, username}));
+    Users appUser = userRepository.findByUsername(username)
+        .orElseThrow(() -> NotFoundException.of("User not found",
+            ExceptionErrorCode.EXCEPTION_NOT_FOUND, new Object[] {FieldConstant.USER, username}));
 
-    return User.builder()
-        .username(appUser.getUsername())
-        .password(appUser.getPassword())
+    return User.builder().username(appUser.getUsername()).password(appUser.getPassword())
         .disabled(!appUser.isActive())
-        .authorities(new SimpleGrantedAuthority(appUser.getRole().getName()))
-        .build();
+        .authorities(new SimpleGrantedAuthority(appUser.getRole().getName())).build();
   }
 }

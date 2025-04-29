@@ -1,0 +1,17 @@
+package com.bilsora.usermanager.service;
+
+import com.bilsora.usermanager.model.Users;
+
+import java.util.Optional;
+
+/** Service interface for user. */
+public interface UserService {
+
+  /**
+   * Find user by username
+   *
+   * @param username String username
+   * @return User
+   */
+  Optional<Users> findByUsername(String username);
+}

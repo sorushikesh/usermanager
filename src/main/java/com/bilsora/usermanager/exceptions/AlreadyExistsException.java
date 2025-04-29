@@ -33,8 +33,8 @@ public class AlreadyExistsException extends ErrorResponseException {
     return new AlreadyExistsException(message, errorCode, args);
   }
 
-  private static ProblemDetail createProblemDetail(
-      String message, String errorCode, Object[] args) {
+  private static ProblemDetail createProblemDetail(String message, String errorCode,
+      Object[] args) {
     ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.CONFLICT);
     problemDetail.setTitle("Resource Already Exists");
     problemDetail.setDetail(message);
