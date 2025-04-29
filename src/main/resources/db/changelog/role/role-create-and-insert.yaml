@@ -45,4 +45,10 @@ databaseChangeLog:
       rollback:
         - delete:
             tableName: role
-            where: name in ('Admin', 'Accountant', 'User')
+            where: name = 'Admin'
+        - delete:
+            tableName: role
+            where: name = 'Accountant'
+        - delete:
+            tableName: role
+            where: name = 'User'

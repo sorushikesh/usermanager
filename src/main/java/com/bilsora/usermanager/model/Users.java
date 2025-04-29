@@ -12,12 +12,16 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 public class Users {
 
-  @Id private String username;
+  @Id
+  @Column(nullable = false, unique = true)
+  private String username;
+
+  @Column(nullable = false)
   private String password;
-  private Long tenantId;
+
   private boolean active = true;
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "role_id", referencedColumnName = "id")
   private Role role;
 }

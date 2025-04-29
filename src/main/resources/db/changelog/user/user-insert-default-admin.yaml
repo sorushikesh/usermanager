@@ -1,24 +1,7 @@
 databaseChangeLog:
   - changeSet:
-      id: 20250428-005-insert-default-admin
+      id: 20250428-004-insert-default-admin
       author: rushikesh
       changes:
-        - insert:
-            tableName: users
-            columns:
-              - column:
-                  name: username
-                  value: admin
-              - column:
-                  name: password
-                  value: $2a$10$rGr4kCEfEjIC3Lz0vH.f7.1X4lpd5RxHYeIYg6oPCGRuhcAbYQ/mq
-              - column:
-                  name: tenantId
-                  value: default-tenant
-              - column:
-                  name: active
-                  valueBoolean: true
-      rollback:
-        - delete:
-            tableName: users
-            where: username = 'admin'
+        - sqlFile:
+            path: db/changelog/sql/insert-admin.sql
