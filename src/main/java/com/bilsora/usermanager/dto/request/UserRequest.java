@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 public class UserRequest {
 
   @NotBlank(message = "Username must not be blank")
-  private String userName;
+  private String username;
 }

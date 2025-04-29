@@ -20,8 +20,8 @@ public class AlreadyExistsException extends ErrorResponseException {
    * @param errorCode the error code for localization
    * @param errorMessageArguments the arguments for the error message, may be null
    */
-  public AlreadyExistsException(HttpStatusCode statusCode, ProblemDetail problemDetail, String errorCode,
-      Object[] errorMessageArguments) {
+  public AlreadyExistsException(HttpStatusCode statusCode, ProblemDetail problemDetail,
+      String errorCode, Object[] errorMessageArguments) {
     super(statusCode, validateProblemDetail(problemDetail), null, errorCode, errorMessageArguments);
   }
 
