@@ -13,7 +13,7 @@ import org.springframework.web.ErrorResponseException;
 public class AlreadyExistsException extends ErrorResponseException {
 
   private final String errorCode;
-  private final Object[] args;
+  private final transient Object[] args;
 
   private AlreadyExistsException(String message, String errorCode, Object[] args) {
     super(HttpStatus.CONFLICT, createProblemDetail(message, errorCode, args), null);

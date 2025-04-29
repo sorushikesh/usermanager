@@ -1,4 +1,4 @@
-package com.bilsora.usermanager.service.serviceImpl;
+package com.bilsora.usermanager.service.serviceimpl;
 
 import com.bilsora.usermanager.dto.response.RoleResponse;
 import com.bilsora.usermanager.exceptions.NotFoundException;
