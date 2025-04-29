@@ -46,9 +46,8 @@ public class RoleController {
         .map(role -> new RoleResponse(role.getId(), role.getName()))
         .orElseThrow(
             () ->
-                new NotFoundException(
-                    HttpStatus.NOT_FOUND,
-                    problemDetail,
+                NotFoundException.of(
+                    "Role not found",
                     ExceptionErrorCode.EXCEPTION_NOT_FOUND,
                     new Object[] {FieldConstant.ROLE, roleName}));
   }

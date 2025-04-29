@@ -1,5 +1,8 @@
 package com.bilsora.usermanager.service.serviceImpl;
 
+import com.bilsora.usermanager.constants.ExceptionErrorCode;
+import com.bilsora.usermanager.constants.FieldConstant;
+import com.bilsora.usermanager.exceptions.NotFoundException;
 import com.bilsora.usermanager.model.Users;
 import com.bilsora.usermanager.repository.UserRepository;
 import com.bilsora.usermanager.service.CustomUserDetailsService;
@@ -23,7 +26,12 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
     Users appUser =
         userRepository
             .findByUsername(username)
-            .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+            .orElseThrow(
+                () ->
+                    NotFoundException.of(
+                        "User not found",
+                        ExceptionErrorCode.EXCEPTION_NOT_FOUND,
+                        new Object[] {FieldConstant.USER, username}));
 
     return User.builder()
         .username(appUser.getUsername())
