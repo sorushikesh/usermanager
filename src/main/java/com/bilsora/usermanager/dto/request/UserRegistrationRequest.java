@@ -20,8 +20,5 @@ public class UserRegistrationRequest {
   private String email;
 
   @NotBlank(message = "Role is required")
-  private String roles;
-
-  @NotBlank(message = "TenantId is required")
-  private Long tenantId;
+  private String role;
 }

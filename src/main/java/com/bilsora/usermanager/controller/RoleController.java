@@ -9,6 +9,7 @@ import com.bilsora.usermanager.dto.request.RoleNameRequest;
 import com.bilsora.usermanager.dto.response.RoleResponse;
 import com.bilsora.usermanager.exceptions.NotFoundException;
 import com.bilsora.usermanager.service.RoleService;
+import com.bilsora.usermanager.util.UserManagerUtil;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Locale;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 public class RoleController {
 
   private final RoleService roleService;
+  private final UserManagerUtil userManagerUtil;
 
   @PostMapping("/get-by-name")
   @ResponseStatus(HttpStatus.OK)
@@ -34,7 +36,7 @@ public class RoleController {
       @Valid @RequestBody RoleNameRequest roleNameRequest,
       @RequestHeader(value = "locale", required = false) String localeHeader) {
 
-    Locale locale = resolveLocale(localeHeader);
+    Locale locale = userManagerUtil.resolveLocale(localeHeader);
     LocaleContextHolder.setLocale(locale);
 
     String roleName = roleNameRequest.getRoleName();
@@ -57,17 +59,10 @@ public class RoleController {
   public List<RoleResponse> getAllRoles(
       @RequestHeader(value = "locale", required = false) String localeHeader) {
 
-    Locale locale = resolveLocale(localeHeader);
+    Locale locale = userManagerUtil.resolveLocale(localeHeader);
     LocaleContextHolder.setLocale(locale);
 
     log.info("Fetching the list of role");
     return roleService.getAllRoles();
-  }
-
-  private Locale resolveLocale(String localeHeader) {
-    if (localeHeader == null || localeHeader.isBlank()) {
-      return Locale.ENGLISH;
-    }
-    return Locale.forLanguageTag(localeHeader);
   }
 }

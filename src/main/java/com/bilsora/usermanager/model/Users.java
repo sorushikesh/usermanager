@@ -1,6 +1,7 @@
 package com.bilsora.usermanager.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,10 @@ public class Users {
 
   @Column(nullable = false)
   private String password;
+
+  @Column(nullable = false)
+  @Email(message = "Invalid email format")
+  private String email;
 
   private boolean active = true;
 
