@@ -13,16 +13,10 @@ databaseChangeLog:
                   name: password
                   value: $2a$10$rGr4kCEfEjIC3Lz0vH.f7.1X4lpd5RxHYeIYg6oPCGRuhcAbYQ/mq
               - column:
-                  name: tenant_id
+                  name: tenantId
                   value: default-tenant
               - column:
-                  name: organization_id
-                  value: default-org
-              - column:
-                  name: subscription_plan
-                  value: FREE
-              - column:
-                  name: enabled
+                  name: active
                   valueBoolean: true
       rollback:
         - delete:

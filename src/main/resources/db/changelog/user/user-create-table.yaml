@@ -18,7 +18,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: tenant_id
+                  name: tenantId
                   type: VARCHAR(255)
                   constraints:
                     nullable: true
